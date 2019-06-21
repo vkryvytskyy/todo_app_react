@@ -17,7 +17,7 @@ class TodoInput extends Component {
     return (
       <input
         type='text'
-        placeholder='What needs to be done?'
+        placeholder='Got plans?'
         className="todo-input"
         value={this.state.value}
         onChange={this.handleChange}

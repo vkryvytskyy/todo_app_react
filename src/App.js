@@ -11,6 +11,7 @@ class App extends React.Component {
         }
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
     }
     
     handleChange(id) {
@@ -30,9 +31,9 @@ class App extends React.Component {
     handleSubmit(value) {
       this.setState(prevState => {
         let newTodos = prevState.todos
-        const idGen = newTodos.length ? newTodos.length + 1 : 1
-          newTodos.push({
-          id: idGen + 1 ,
+        const idGen = newTodos.length ? newTodos.length + 1: 0
+          newTodos.unshift({
+          id: idGen + 1,
           text: value,
           completed: false
           })
@@ -40,15 +41,25 @@ class App extends React.Component {
           todos: newTodos
         }
       })
-      }
+    }
+  
+    handleDelete(item) {
+      this.setState(prevState => {
+        let filteredTodos = prevState.todos.filter(todo => todo.id !== item.id )
+        return {
+          todos: filteredTodos
+        }
+      })
+    }
     
     render() {
-        const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item} handleChange={this.handleChange}/>)
+      const todoItems = this.state.todos.map(item =>
+        <TodoItem key={item.id} item={item} handleChange={this.handleChange} handleDelete={this.handleDelete}/>)
         
       return (
           <div className="todo-list">
-            <TodoInput handleSubmit={this.handleSubmit} />
-            {todoItems}
+          <TodoInput handleSubmit={this.handleSubmit} />
+          {todoItems}
           </div>
       );    
     }

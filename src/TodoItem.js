@@ -15,6 +15,7 @@ function TodoItem(props) {
                 onChange={() => props.handleChange(props.item.id)}
             />
             <p style={props.item.completed ? completedStyle: null}>{props.item.text}</p>
+            <button className='delete' onClick={() => props.handleDelete(props.item)}>-</button>
         </div>
     )
 }
