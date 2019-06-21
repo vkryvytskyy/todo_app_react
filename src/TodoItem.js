@@ -6,17 +6,35 @@ function TodoItem(props) {
         color: "#cdcdcd",
         textDecoration: "line-through"
     }
-    
+
     return (
-        <div className="todo-item">
+        <div
+            hidden={props.item.hidden}  
+            className='container'
+        >
+            <div className="todo-item">
             <input 
                 type="checkbox" 
                 checked={props.item.completed} 
                 onChange={() => props.handleChange(props.item.id)}
+                hidden={props.item.hidden}
             />
-            <p style={props.item.completed ? completedStyle: null}>{props.item.text}</p>
-            <button className='delete' onClick={() => props.handleDelete(props.item)}>-</button>
+            <p
+                style={props.item.completed ? completedStyle : null}
+                hidden={props.item.hidden}
+            >
+                {props.item.text}
+            </p>
+            <button
+                className='delete'
+                onClick={() => props.handleDelete(props.item)}
+                hidden={props.item.hidden}
+            >
+                -
+            </button>
         </div>
+        </div>
+            
     )
 }
 
