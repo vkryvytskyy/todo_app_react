@@ -8,12 +8,14 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: []
+      todos: [],
+      type: "All"
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleButtons = this.handleButtons.bind(this);  }
+    this.handleButtons = this.handleButtons.bind(this);
+  }
 
   handleChange(id) {
     this.setState(prevState => {
@@ -30,19 +32,22 @@ class App extends React.Component {
   }
 
   handleSubmit(value) {
-    this.setState(prevState => {
-      let newTodos = prevState.todos;
-      const idGen = newTodos.length ? newTodos.length + 1 : 0;
-      newTodos.unshift({
-        id: idGen + 1,
-        text: value,
-        completed: false,
-        hidden: false
-      });
-      return {
-        todos: newTodos
-      };
-    });
+    this.setState(
+      prevState => {
+        let newTodos = prevState.todos;
+        const idGen = newTodos.length ? newTodos.length : 0;
+        newTodos.unshift({
+          id: idGen + 1,
+          text: value,
+          completed: false,
+          hidden: false
+        });
+        return {
+          todos: newTodos
+        };
+      },
+      () => this.handleButtons(this.state.type)
+    );
   }
 
   handleDelete(item) {
@@ -54,28 +59,41 @@ class App extends React.Component {
     });
   }
 
-  handleButtons(type) { 
+  handleButtons(type) {
     this.setState(prevState => {
-      const updatedTodos = prevState.todos.map(todo => {
-        if (type === 'All') {
-          todo.hidden = false
-        } else if (type === 'Active') {
+      const updatedTodos = prevState.todos;
+
+      if (type === "All") {
+        updatedTodos.map(todo => {
+          todo.hidden = false;
+
+          return todo;
+        });
+      } else if (type === "Active") {
+        updatedTodos.map(todo => {
           if (todo.completed === true) {
-            todo.hidden = true
+            todo.hidden = true;
           } else {
-            todo.hidden = false
+            todo.hidden = false;
           }
-        } else if (type === 'Completed') {
+
+          return todo;
+        });
+      } else if (type === "Completed") {
+        updatedTodos.map(todo => {
           if (todo.completed === true) {
-            todo.hidden = false
+            todo.hidden = false;
           } else {
-            todo.hidden = true
+            todo.hidden = true;
           }
-        }   
-        return todo
-      });
+
+          return todo;
+        });
+      }
+      
       return {
-        todos: updatedTodos
+        todos: updatedTodos,
+        type
       };
     });
   }
@@ -92,10 +110,7 @@ class App extends React.Component {
 
     return (
       <div className="todo-list">
-        <Buttons
-          todos={this.state.todos}
-          handleButtons={this.handleButtons}
-        />
+        <Buttons todos={this.state.todos} handleButtons={this.handleButtons} />
         <TodoInput handleSubmit={this.handleSubmit} />
         {todoItems}
       </div>
