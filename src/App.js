@@ -15,6 +15,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleButtons = this.handleButtons.bind(this);
+    this.handleCheckAll = this.handleCheckAll.bind(this);
   }
 
   handleChange(id) {
@@ -29,6 +30,27 @@ class App extends React.Component {
         todos: updatedTodos
       };
     });
+  }
+
+  handleCheckAll() {
+    this.setState(prevState => {
+      const newTodos = [...prevState.todos];
+      if (newTodos.every(todo => todo.completed)) {
+        newTodos.map(todo => {
+          todo.completed = !todo.completed
+          return todo
+        })
+      } else if (newTodos.some(todo => !todo.completed)) {
+        newTodos.map(todo => {
+          todo.completed = true
+          return todo
+        })
+      }
+
+      return {
+        todos: newTodos
+      }
+    })
   }
 
   handleSubmit(value) {
@@ -110,7 +132,10 @@ class App extends React.Component {
 
     return (
       <div className="todo-list">
-        <Buttons todos={this.state.todos} handleButtons={this.handleButtons} />
+        <Buttons
+          todos={this.state.todos}
+          handleButtons={this.handleButtons}
+          handleCheckAll={this.handleCheckAll} />
         <TodoInput handleSubmit={this.handleSubmit} />
         {todoItems}
       </div>

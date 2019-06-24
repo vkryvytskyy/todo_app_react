@@ -29,6 +29,18 @@ body {
   position: relative;
 }
 
+.allItems:focus { 
+  background-color: #5f93e8;
+}
+
+.activeItems:focus { 
+  background-color: #51cc4b;
+}
+
+.completedItems:focus { 
+  background-color: #cc4b57;
+}
+
 .todo-item {
   display: flex;
   justify-content: flex-start;
