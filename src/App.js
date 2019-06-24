@@ -34,10 +34,10 @@ class App extends React.Component {
   handleSubmit(value) {
     this.setState(
       prevState => {
-        let newTodos = prevState.todos;
-        const idGen = newTodos.length ? newTodos.length : 0;
+        const newTodos = [...prevState.todos];
+        const idGen = Date.now();
         newTodos.unshift({
-          id: idGen + 1,
+          id: idGen,
           text: value,
           completed: false,
           hidden: false
@@ -52,7 +52,7 @@ class App extends React.Component {
 
   handleDelete(item) {
     this.setState(prevState => {
-      let filteredTodos = prevState.todos.filter(todo => todo.id !== item.id);
+      const filteredTodos = prevState.todos.filter(todo => todo.id !== item.id);
       return {
         todos: filteredTodos
       };
@@ -61,7 +61,7 @@ class App extends React.Component {
 
   handleButtons(type) {
     this.setState(prevState => {
-      const updatedTodos = prevState.todos;
+      const updatedTodos = [...prevState.todos];
 
       if (type === "All") {
         updatedTodos.map(todo => {
