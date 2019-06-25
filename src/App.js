@@ -93,21 +93,13 @@ class App extends React.Component {
         });
       } else if (type === "Active") {
         updatedTodos.map(todo => {
-          if (todo.completed === true) {
-            todo.hidden = true;
-          } else {
-            todo.hidden = false;
-          }
+          todo.hidden = todo.completed
 
           return todo;
         });
       } else if (type === "Completed") {
         updatedTodos.map(todo => {
-          if (todo.completed === true) {
-            todo.hidden = false;
-          } else {
-            todo.hidden = true;
-          }
+          todo.hidden = !todo.completed
 
           return todo;
         });
