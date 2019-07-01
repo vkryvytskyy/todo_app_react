@@ -1,11 +1,6 @@
 import React from "react"
 
 function TodoItem(props) {
-    const completedStyle = {
-        fontStyle: "italic",
-        color: "#cdcdcd",
-        textDecoration: "line-through"
-    }
 
     return (
         <div
@@ -20,7 +15,7 @@ function TodoItem(props) {
                 hidden={props.item.hidden}
             />
             <p
-                style={props.item.completed ? completedStyle : null}
+                className={props.item.completed ? "completed" : null}
                 hidden={props.item.hidden}
             >
                 {props.item.text}

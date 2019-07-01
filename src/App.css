@@ -2,6 +2,12 @@ body {
   background-color: whitesmoke;
 }
 
+.completed {
+    font-style: italic;
+    color: #cdcdcd;
+    text-decoration: line-through
+}
+
 .todo-list {
   background-color: white;
   margin: auto;

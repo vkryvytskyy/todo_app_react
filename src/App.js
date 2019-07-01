@@ -11,14 +11,9 @@ class App extends React.Component {
       todos: [],
       type: "All"
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleButtons = this.handleButtons.bind(this);
-    this.handleCheckAll = this.handleCheckAll.bind(this);
   }
 
-  handleChange(id) {
+  handleChange = (id) => {
     this.setState(prevState => {
       const updatedTodos = prevState.todos.map(todo => {
         if (todo.id === id) {
@@ -32,9 +27,10 @@ class App extends React.Component {
     });
   }
 
-  handleCheckAll() {
+  handleCheckAll = () => {
     this.setState(prevState => {
       const newTodos = [...prevState.todos];
+      
       if (newTodos.every(todo => todo.completed)) {
         newTodos.map(todo => {
           todo.completed = !todo.completed
@@ -53,7 +49,7 @@ class App extends React.Component {
     })
   }
 
-  handleSubmit(value) {
+  handleSubmit = (value) => {
     this.setState(
       prevState => {
         const newTodos = [...prevState.todos];
@@ -72,7 +68,7 @@ class App extends React.Component {
     );
   }
 
-  handleDelete(item) {
+  handleDelete = (item) => {
     this.setState(prevState => {
       const filteredTodos = prevState.todos.filter(todo => todo.id !== item.id);
       return {
@@ -81,7 +77,7 @@ class App extends React.Component {
     });
   }
 
-  handleButtons(type) {
+  handleButtons = (type) => {
     this.setState(prevState => {
       const updatedTodos = [...prevState.todos];
 
